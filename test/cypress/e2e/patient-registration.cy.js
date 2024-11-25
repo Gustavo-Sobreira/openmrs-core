@@ -15,12 +15,22 @@ describe('Register Patient', () => {
     cy.contains('The file "LargeImage.jpg" exceeds the size limit of 1 MB.')
   })
 
-  it(`Test import image with success`, () => {
+  it(`Test import small image with success`, () => {
 
     cy.contains('Patient Registration', { timeout: 15000 })
       .should('be.visible')
     cy.get('button').contains('Add image +').click()
     cy.get('.cds--file-input').selectFile('cypress/import/SmallImage.jpeg', { force: true })
+    cy.get('button').contains('Add Attachment').click({ force: true })
+    cy.contains('Upload complete', { timeout: 15000 })
+  })
+
+  it(`Test import image 1MB with success`, () => {
+
+    cy.contains('Patient Registration', { timeout: 15000 })
+      .should('be.visible')
+    cy.get('button').contains('Add image +').click()
+    cy.get('.cds--file-input').selectFile('cypress/import/NormalImage.jpg', { force: true })
     cy.get('button').contains('Add Attachment').click({ force: true })
     cy.contains('Upload complete', { timeout: 15000 })
   })
